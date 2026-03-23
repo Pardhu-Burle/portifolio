@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Details | Pardhu Burle</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .cert-item {
+            background: rgba(17, 17, 17, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 3rem auto;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .cert-item:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.2);
+        }
+        .cert-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .cert-item h3 {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Gradient Orbs -->
+    <div class="glow-bg glow-1"></div>
+    <div class="glow-bg glow-2"></div>
+    <div class="glow-bg glow-3"></div>
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="navbar container">
+            <a href="index.html#home" class="logo">&lt;Pardhu/&gt;</a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#certifications" class="active">Certifications</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="container section-padding" style="margin-top: 80px; min-height: 80vh;">
+            <div class="section-title" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+                <h2>Certificate Details</h2>
+                <div class="line"></div>
+            </div>
+            
+            <div class="cert-item" id="certContainer">
+                <h3 id="certTitle">Loading...</h3>
+                <div id="certImageContainer" style="margin-top: 1.5rem;">
+                    <!-- Image or placeholder inserted here via JS -->
+                </div>
+            </div>
+
+            <div style="margin-top: 4rem; text-align: center;">
+                <a href="index.html#certifications" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content" style="text-align: center; padding: 2rem 0; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+            <p>&copy; 2026 Pardhu Burle. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Custom Script -->
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const certData = {
+                'rhel': {
+                    title: 'Red Hat Enterprise Linux Certification',
+                    image: 'rhel-cert-2.png'
+                },
+                'linux': {
+                    title: 'Linux System Admin Using Shell Scripting',
+                    image: 'rhel-cert-1.png'
+                },
+                'nptel': {
+                    title: 'NPTEL IIT Madras – Social Network',
+                    image: 'cert-3.jpeg'
+                },
+                'cyber': {
+                    title: 'Cyber Yami Certification',
+                    image: 'Screenshot 2026-03-23 233723.png'
+                }
+            };
+
+            const params = new URLSearchParams(window.location.search);
+            const certId = params.get('id');
+            const data = certData[certId];
+
+            if (data) {
+                document.getElementById('certTitle').textContent = data.title;
+                const imgContainer = document.getElementById('certImageContainer');
+                
+                if (data.image) {
+                    imgContainer.innerHTML = `<img src="${data.image}" alt="${data.title}">`;
+                } else {
+                    imgContainer.innerHTML = `
+                        <i class="fas fa-image" style="font-size: 4rem; color: var(--text-secondary); margin: 2rem 0; display: inline-block;"></i>
+                        <p style="color: var(--text-secondary); font-size: 1.1rem;">Image coming soon. The certificate image will be updated shortly!</p>
+                    `;
+                    document.getElementById('certContainer').style.padding = "5rem 2.5rem";
+                }
+            } else {
+                document.getElementById('certTitle').textContent = "Certificate Not Found";
+                document.getElementById('certImageContainer').innerHTML = "<p>Invalid certificate ID provided.</p>";
+            }
+        });
+    </script>
+</body>
+</html>
